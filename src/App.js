@@ -49,15 +49,19 @@ function App() {
   }
   */
   function handleDepartmentSelected(event){
-    setDepartmentSelected(event.target.value)
+    setDepartmentSelected(event.target.value);
   }
   function handleCitySelected(event){
-    setCitySelected(event.target.value)
+    setCitySelected(event.target.value);
+    setRestaurantData({
+      ...restaurantData,
+      cityId : event.target.value
+    });
   }
   function handleChange(event){
-    console.log(event.target) //solo es para ver como funciona
+    //console.log(event.target) //solo es para ver como funciona
     const { name, value} = event.target;
-    console.log( name + ": " + value); //solo es para ver como funciona
+    //console.log( name + ": " + value); //solo es para ver como funciona
     setRestaurantData({
       ...restaurantData,
       [name]: value
@@ -92,25 +96,36 @@ function App() {
           <label>NIT del restaurante: </label>
           <input type='text' id="restaurantNit" name="restaurantNit" value={restaurantData.restaurantNit} onChange={handleChange}></input>
         </div>
+        <div>
+          <select id="opcionesDepartamentos" value={departmentSelected} onChange={handleDepartmentSelected}>
+            <option value="">Seleccione un Departamento</option>
+            {departments.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))
+            }
+          </select>
+        </div>
+        <div>
+          <select id="opcionesCiudades" value={citySelected} onChange={handleCitySelected}>
+            <option value="">Seleccione una Ciudad</option>
+            {cities.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))
+            }
+          </select>
+        </div>
+        <div>
+          <label>Direccion del restaurante: </label>
+          <input type='text' id="restaurantAddress" name="restaurantAddress" value={restaurantData.restaurantAddress} onChange={handleChange}></input>
+        </div>
+        <div>
+          <label>Telefono del restaurante: </label>
+          <input type='text' id="restaurantPhone" name="restaurantPhone" value={restaurantData.restaurantPhone} onChange={handleChange}></input>
+        </div>
+        <div>
+          <button type='submit'> Guardar </button>
+        </div>
       </form>
-      <div>
-        <select id="opcionesDepartamentos" value={departmentSelected} onChange={handleDepartmentSelected}>
-          <option value="">Seleccione un Departamento</option>
-          {departments.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))
-          }
-        </select>
-      </div>
-      <div>
-        <select id="opcionesCiudades" value={citySelected} onChange={handleCitySelected}>
-          <option value="">Seleccione una Ciudad</option>
-          {cities.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))
-          }
-        </select>
-      </div>
     </div>
   );
 }
